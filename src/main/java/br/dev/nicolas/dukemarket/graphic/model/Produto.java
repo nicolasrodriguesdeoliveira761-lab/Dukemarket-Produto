@@ -10,8 +10,8 @@ package br.dev.nicolas.dukemarket.graphic.model;
  * @author sesi2dib
  */
 public class Produto {
-   private int id;
-    private String codBarras;
+   private int Id;
+    private String Endereco;
     private String descricao;
     private double qtd;
     private double valorCompra;
@@ -25,7 +25,7 @@ public class Produto {
     }
 
     public Produto(int id, String codBarras, String descricao, double qtd, double valorCompra, double valorVenda, Calendar dataCadastro) {
-        this.id = id;
+        this.Id = Id;
         this.codBarras = codBarras;
         this.descricao = descricao;
         this.qtd = qtd;

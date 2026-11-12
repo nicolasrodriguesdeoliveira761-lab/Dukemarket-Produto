@@ -6,5 +6,6 @@
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.dev.nicolas.dukemarket.graphic.controller.MenuPrincipalController">
    <children>
       <Button id="btnProdutos" fx:id="btnProdutos" layoutX="24.0" layoutY="38.0" mnemonicParsing="false" onAction="#btnProdutosClick" onMouseClicked="#btnProdutosClick" prefHeight="63.0" prefWidth="132.0" text="Produtos" />
+      <Button id="btnClientes" fx:id="btnClientes" layoutX="168.0" layoutY="38.0" mnemonicParsing="false" onAction="#btnProdutosClick" onMouseClicked="#btnClientesClick" prefHeight="63.0" prefWidth="132.0" text="Clientes" />
    </children>
 </AnchorPane>
