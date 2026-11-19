@@ -11,7 +11,7 @@ package br.dev.nicolas.dukemarket.graphic.model;
  */
 public class Produto {
    private int Id;
-    private String Endereco;
+    private String codBarras;
     private String descricao;
     private double qtd;
     private double valorCompra;
@@ -38,11 +38,11 @@ public class Produto {
 
     // --- GETTERS E SETTERS PADRÕES ---
     public int getId() {
-        return id;
+        return Id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getCodBarras() {
@@ -108,7 +108,7 @@ public class Produto {
     @Override
     public String toString() {
         return String.format("%3d | %15s | %-30s | %10.2f | %10.2f | %10.2f | %10s", 
-                this.id, 
+                this.Id, 
                 this.codBarras, 
                 this.descricao, 
                 this.qtd, 

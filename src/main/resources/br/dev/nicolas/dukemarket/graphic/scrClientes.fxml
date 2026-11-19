@@ -8,14 +8,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="565.0" prefWidth="699.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/26" fx:controller="br.dev.nicolas.dukemarket.graphic.controller.ScrClientesController">
+<AnchorPane id="AnchorPane" prefHeight="565.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.dev.nicolas.dukemarket.graphic.controller.ScrClientesController">
    <children>
       <AnchorPane id="AnchorPane" layoutX="10.0" layoutY="10.0" prefHeight="595.0" prefWidth="866.0">
          <children>
             <AnchorPane layoutY="-1.0" prefHeight="370.0" prefWidth="872.0">
                <children>
-                  <TableView fx:id="tblClientes" layoutX="10.0" layoutY="10.0" onMouseClicked="#tblProdutoOnMouseClicked" prefHeight="351.0" prefWidth="853.0">
+                  <TableView fx:id="tblClientes" layoutX="10.0" layoutY="10.0" onMouseClicked="#tblClientesOnMouseClicked" prefHeight="351.0" prefWidth="853.0">
                      <columns>
                         <TableColumn fx:id="tcoId" prefWidth="75.0" text="ID" />
                         <TableColumn fx:id="tcoEndereco" prefWidth="75.0" text="Endereço" />

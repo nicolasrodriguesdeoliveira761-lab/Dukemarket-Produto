@@ -1,7 +1,10 @@
+br\dev\nicolas\dukemarket\graphic\DAO\ClientesDAO.class
+br\dev\nicolas\dukemarket\graphic\controller\ScrClientesController.class
+br\dev\nicolas\dukemarket\graphic\controller\ScrProdutosController.class
 br\dev\nicolas\dukemarket\graphic\model\Produto.class
 br\dev\nicolas\dukemarket\graphic\App.class
 module-info.class
 br\dev\nicolas\dukemarket\graphic\DAO\ProdutosDAO.class
 connection\MySQLConnection.class
 br\dev\nicolas\dukemarket\graphic\controller\MenuPrincipalController.class
-br\dev\nicolas\dukemarket\graphic\controller\ScrProdutosController.class
+br\dev\nicolas\dukemarket\graphic\model\Clientes.class

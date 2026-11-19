@@ -1,8 +1,8 @@
 package br.dev.nicolas.dukemarket.graphic.controller;
 
 import br.dev.nicolas.dukemarket.graphic.App;
-import br.dev.nicolas.dukemarket.graphic.DAO.ProdutosDAO;
-import br.dev.nicolas.dukemarket.graphic.model.Produto;
+import br.dev.nicolas.dukemarket.graphic.DAO.ClientesDAO;
+import br.dev.nicolas.dukemarket.graphic.model.Clientes;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -33,59 +33,59 @@ import javafx.stage.Stage;
  * @author sesi2dib
  */
 public class ScrClientesController implements Initializable {
-
+    
     @FXML
-    TableView <Produto> tblClientes;
-
+    TableView<Clientes> tblClientes;
+    
     @FXML
-    TableColumn <Produto, Integer> tcoId;
-
+    TableColumn<Clientes, Integer> tcoId;
+    
     @FXML
-    TableColumn <Produto, String> tcoEndereco;
-
+    TableColumn<Clientes, String> tcoEndereco;
+    
     @FXML
-    TableColumn <Produto, String> tcoNomeCompleto;
-
+    TableColumn<Clientes, String> tcoNomeCompleto;
+    
     @FXML
-    TableColumn <Produto, Double> tcoCPF;
-
+    TableColumn<Clientes, String> tcoCPF;
+    
     @FXML
-    TableColumn <Produto, Double> tcoCidade;
-
+    TableColumn<Clientes, String> tcoCidade;
+    
     @FXML
-    TableColumn <Produto, Double> tcoUF;
-
+    TableColumn<Clientes, String> tcoUF;
+    
     @FXML
-    TableColumn <Produto, Calendar> tcoDataCadastro;
-
+    TableColumn<Clientes, Calendar> tcoDataCadastro;
+    
     @FXML
     TextField txtId;
-
+    
     @FXML
     TextField txtEndereco;
-
+    
     @FXML
     TextField txtNomeCompleto;
-
+    
     @FXML
     TextField txtCPF;
-
+    
     @FXML
     TextField txtCidade;
-
+    
     @FXML
     TextField txtUF;
-
+    
     @FXML
     DatePicker dtpDataCadastro;
-
-    ProdutosDAO pDAO;
-    Produto pClicked;    // Armazena o produto clicado na tabela
+    
+    ClientesDAO cDAO;
+    Clientes cClicked;    // Armazena o produto clicado na tabela
     private boolean flagNovo;
-    
-    
+
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -94,196 +94,204 @@ public class ScrClientesController implements Initializable {
         bindColumns();
         
         carregaDados();
-    }    
+    }
+
     /**
- * Conecta as colunas da TableView com os atributos da classe Produto.
- * @return void
- */
-private void bindColumns() {
+     * Conecta as colunas da TableView com os atributos da classe Produto.
+     *
+     * @return void
+     */
+    private void bindColumns() {
 
-    // Vincula a coluna tcoId com o atributo id da classe Produto
-    tcoId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        // Vincula a coluna tcoId com o atributo id da classe Produto
+        tcoId.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-    // Adiciona uma configuração extra de alinhamento à direita.
-    tcoId.setStyle("-fx-alignment: CENTER_RIGHT;");
+        // Adiciona uma configuração extra de alinhamento à direita.
+        tcoId.setStyle("-fx-alignment: CENTER_RIGHT;");
+        
+        tcoEndereco.setCellValueFactory(new PropertyValueFactory<>("Endereco"));
+        tcoEndereco.setStyle("-fx-alignment: CENTER_RIGHT;");
+        
+        tcoNomeCompleto.setCellValueFactory(new PropertyValueFactory<>("NomeCompleto"));
+        
+        tcoCPF.setCellValueFactory(new PropertyValueFactory<>("CPF"));
+        tcoCPF.setStyle("-fx-alignment: CENTER_RIGHT;");
+        
+        tcoCidade.setCellValueFactory(new PropertyValueFactory<>("Cidade"));
+        tcoCidade.setStyle("-fx-alignment: CENTER_RIGHT;");
+        
+        tcoUF.setCellValueFactory(new PropertyValueFactory<>("UF"));
+        tcoUF.setStyle("-fx-alignment: CENTER_RIGHT;");
+        
+        tcoDataCadastro.setCellValueFactory(new PropertyValueFactory<>("dataCadastro"));
+        tcoDataCadastro.setStyle("-fx-alignment: CENTER_RIGHT;");
+        
+    }
 
-    tcoId.setCellValueFactory(new PropertyValueFactory<>("codBarras"));
-    tcoId.setStyle("-fx-alignment: CENTER_RIGHT;");
+    /**
+     *
+     * Carrega os dados de Produto que estão na base e vincula a TableView.
+     *
+     */
+    public void carregaDados() {
+        
+        this.cDAO = new ClientesDAO();
 
-    tcoNomeCompleto.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        // Carrega view tblProduto com todos os resultados de produto.
+        this.tblClientes.getItems().setAll(cDAO.getResults());
+        
+    }
 
-    tcoCPF.setCellValueFactory(new PropertyValueFactory<>("qtd"));
-    tcoCPF.setStyle("-fx-alignment: CENTER_RIGHT;");
+    /**
+     * Action do botão btnNovo. Limpa os campos e posiciona o focus em txtId.
+     *
+     * @return void
+     */
+    @FXML
+    private void btnNovoClick() {
+        txtId.setText("auto");
+        txtId.setEditable(false);
+        
+        txtId.setText("");
+        txtId.requestFocus();
+        
+        txtEndereco.setText("");
+        txtNomeCompleto.setText("");
+        txtCPF.setText("");
+        txtCidade.setText("");
+        txtUF.setText("");
+        dtpDataCadastro.setValue(null);
+        
+        this.flagNovo = true;
+    }
 
-    tcoCidade.setCellValueFactory(new PropertyValueFactory<>("valorCompra"));
-    tcoCidade.setStyle("-fx-alignment: CENTER_RIGHT;");
-
-    tcoUF.setCellValueFactory(new PropertyValueFactory<>("valorVenda"));
-    tcoUF.setStyle("-fx-alignment: CENTER_RIGHT;");
-
-    tcoDataCadastro.setCellValueFactory(new PropertyValueFactory<>("dataCadastro"));
-    tcoDataCadastro.setStyle("-fx-alignment: CENTER_RIGHT;");
-
-}
-
-/**
- *
- * Carrega os dados de Produto que estão na base e vincula a TableView.
- *
- */
-public void carregaDados(){
-
-    this.pDAO = new ProdutosDAO();
-
-    // Carrega view tblProduto com todos os resultados de produto.
-    this.tblClientes.getItems().setAll(pDAO.getResults());
-
-}
-
-/**
- * Action do botão btnNovo.
- * Limpa os campos e posiciona o focus em txtId.
- *
- * @return void
- */
-@FXML
-private void btnNovoClick() {
-    txtId.setText("auto");
-    txtId.setEditable(false);
-
-    txtId.setText("");
-    txtId.requestFocus();
-
-    txtNomeCompleto.setText("");
-    txtCPF.setText("");
-    txtCidade.setText("");
-    txtUF.setText("");
-    dtpDataCadastro.setValue(null);
-    
-    this.flagNovo = true;
-} 
-/**
+    /**
      * Gerencia o click na tabela, identificando qual registro foi selecionado e
      * preenchendo os TextFields.
      */
     @FXML
-    public void tblProdutoOnMouseClicked() {
+    public void tblClientesOnMouseClicked() {
 
         // getSelectedItem devolve um objeto Produto.
         // pClicked representa o Produto Clicado
-        this.pClicked = tblClientes.getSelectionModel().getSelectedItem();
-
-        if (pClicked != null) {
-
-            txtId.setText(String.valueOf(pClicked.getId()));
+        this.cClicked = tblClientes.getSelectionModel().getSelectedItem();
+        
+        if (cClicked != null) {
+            
+            txtId.setText(String.valueOf(cClicked.getId()));
             txtId.setEditable(false);
-
-            txtId.setText(pClicked.getCodBarras());
-            txtNomeCompleto.setText(pClicked.getDescricao());
-
-            txtCPF.setText(String.valueOf(pClicked.getQtd()));
-            txtCidade.setText(String.valueOf(pClicked.getValorCompra()));
-            txtUF.setText(String.valueOf(pClicked.getValorVenda()));
+            
+            txtId.setText(cClicked.getEndereco());
+            txtNomeCompleto.setText(cClicked.getNomeCompleto());
+            
+            txtEndereco.setText(cClicked.getEndereco());
+            
+            txtCPF.setText(String.valueOf(cClicked.getCPF()));
+            txtCidade.setText(String.valueOf(cClicked.getCidade()));
+            txtUF.setText(String.valueOf(cClicked.getUF()));
 
             // Tratamento da data do cadastro:
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             formatter = formatter.withLocale(Locale.US);
             
-            LocalDate date = LocalDate.parse(pClicked.getDataCadastro(), formatter);
-
+            LocalDate date = LocalDate.parse(cClicked.getDataCadastro(), formatter);
+            
             dtpDataCadastro.setValue(date);
             dtpDataCadastro.setEditable(false);
-
+            
             this.flagNovo = false;
         }
-
+        
     }
+
     /**
      * Gerencia o click do botão Salvar. Adiciona um novo registro quando
      * flagNovo == true ou atualiza quando flagNovo == false;
-     * 
+     *
      */
     @FXML
     public void btnSalvarClick() {
-
-        Produto p = new Produto();
-
-        p.setCodBarras(txtId.getText());
-        p.setDescricao(txtNomeCompleto.getText());
-        p.setQtd(Double.parseDouble(txtCPF.getText()));
-        p.setValorCompra(Double.parseDouble(txtCidade.getText()));
-        p.setValorVenda(Double.parseDouble(txtUF.getText()));
-
+        
+        Clientes c = new Clientes();
+        
+        c.setEndereco(txtEndereco.getText());
+        c.setNomeCompleto(txtNomeCompleto.getText());
+        c.setCPF(txtCPF.getText());
+        c.setCidade(txtCidade.getText());
+        c.setUF(txtUF.getText());
+        
         if (this.flagNovo) {
             // Novo produto...
 
-            this.pDAO.create(p);
-
+            this.cDAO.create(c);
+            
         } else {
             // Ops.. é uma atualização!
-            p.setId(Integer.parseInt(txtId.getText()));
-            this.pDAO.update(p);
-
+            c.setId(Integer.parseInt(txtId.getText()));
+            this.cDAO.update(c);
+            
         }
-
+        
         this.carregaDados();
     }
+
     /**
      * Gerencia o click do botão Excluir. Remove o registro selecionado -
      * carregado em pClicked.
-     * 
+     *
      */
     @FXML
     public void btnExcluirClick() {
-
-        if (this.pClicked != null) {
-
+        
+        if (this.cClicked != null) {
+            
             Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("Confirma Exclusão de Produto?");
-            alert.setHeaderText(pClicked.getDescricao());
+            alert.setTitle("Confirma Exclusão de Cliente?");
+            alert.setHeaderText(cClicked.getNomeCompleto());
             alert.setContentText("Tem certeza que deseja excluir ?");
-
+            
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                this.pDAO.delete(this.pClicked.getId());
-
-                this.tblClientes.getItems().remove(this.pClicked);
-
+                this.cDAO.delete(this.cClicked.getId());
+                
+                this.tblClientes.getItems().remove(this.cClicked);
+                
             }
             this.tblClientes.getSelectionModel().clearSelection();
-            pClicked = null;
-
+            cClicked = null;
+            
         } else {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Ops!");
             alert.setHeaderText("Atenção");
             alert.setContentText("Você deve selecionar um registro antes de excluí-lo!");
-
+            
             alert.showAndWait();
-
+            
         }
     }
-    public void btnProdutosClick() throws IOException {
 
+    public void btnClientesClick() throws IOException {
+        
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(App.class.getResource("scrProdutos.fxml"));
+            fxmlLoader.setLocation(App.class.getResource("scrClientes.fxml"));
             /*
              * if "fx:controller" is not set in fxml
          * fxmlLoader.setController(NewWindowController);
              */
             Scene scene = new Scene(fxmlLoader.load(), 900, 400);
             Stage stage = new Stage();
-
-            stage.setTitle("CRUD Produtos");
+            
+            stage.setTitle("CRUD Clientes");
             stage.setScene(scene);
             stage.show();
-
+            
         } catch (IOException e) {
             Logger logger = Logger.getLogger(getClass().getName());
-            logger.log(Level.SEVERE, "Failed to create new Window scrProdutos.", e);
-
+            logger.log(Level.SEVERE, "Failed to create new Window scrClientes.", e);
+            
         }
-
+        
     }
 }
